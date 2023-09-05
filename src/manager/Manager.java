@@ -32,7 +32,7 @@ public class Manager {
                 System.out.println("За данный месяц нет информации");
                 return;
             }
-            if (addInfo(file, year, month)) {
+            if (readInfo(file, year, month)) {
                 System.out.println("Данные успешно сохранены");
             }
 
@@ -60,7 +60,7 @@ public class Manager {
                     iterator++;
                     continue;
                 }
-                if (!addInfo(file, year, month)) {
+                if (!readInfo(file, year, month)) {
                     iterator++;
                 }
             }
@@ -91,7 +91,7 @@ public class Manager {
                 return;
             }
 
-            if (addInfo(file, year)) {
+            if (readInfo(file, year)) {
                 System.out.println("Данные успешно сохранены");
             }
 
@@ -102,7 +102,7 @@ public class Manager {
         }
     }
 
-    private boolean addInfo(File file, int year, String month) {
+    private boolean readInfo(File file, int year, String month) {
         List<String> list = Parser.parseData(file);
         if (list.isEmpty()) {
             System.out.printf("Файл за %s.%s пуст. Проверьте правильность передачи данных%n", month, year);
@@ -112,7 +112,7 @@ public class Manager {
         return true;
     }
 
-    private boolean addInfo(File file, int year) {
+    private boolean readInfo(File file, int year) {
         List<String> list = Parser.parseData(file);
         if (list.isEmpty()) {
             System.out.printf("Файл за %s пуст. Проверьте правильность передачи данных%n", year);
