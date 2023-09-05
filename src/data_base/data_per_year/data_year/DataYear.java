@@ -58,7 +58,7 @@ public class DataYear {
 
 
     // Требуется посмотреть!!!
-    class MonthInfo {
+    static class MonthInfo {
         String month;
         int expense = 0;
         int revenue = 0;

@@ -22,7 +22,7 @@ public class Manager {
     public void readInfoForMonth()  {
         try {
             System.out.println("Укажите год, за который нужна информация");
-            Integer year = sc.nextInt();
+            int year = sc.nextInt();
             System.out.println("Укажите месяц, за который нужна информация");
             String month = Util.formattingMonth(sc.next());
 
