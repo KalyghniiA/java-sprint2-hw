@@ -71,6 +71,6 @@ public class Util {
     }
 
     public static String createPathToCSV(Integer year) {
-        return String.format("%sy.%h.csv", Constant.HOME.getConstant(), year);
+        return String.format("%sy.%s.csv", Constant.HOME.getConstant(), year);
     }
 }

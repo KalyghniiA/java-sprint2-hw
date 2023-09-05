@@ -1,9 +1,8 @@
-package data_base.dataPerYear;
+package data_base.data_per_year;
 
-import data_base.dataPerYear.dataMonth.DataMonth;
-import data_base.dataPerYear.dataYear.DataYear;
+import data_base.data_per_year.data_month.DataMonth;
+import data_base.data_per_year.data_year.DataYear;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +17,7 @@ public class DataPerYear {
     }
 
     public void addInfo(List<String> info) {
-
+        dataYear.addInfo(info);
     }
 
     public void addInfo(List<String> info, String month) {
@@ -31,12 +30,11 @@ public class DataPerYear {
         dataMonths.add(data);
     }
 
-    public void getInfo() {
-        for (var dataMonth: dataMonths) {
-            System.out.println(dataMonth.getMonth());
-            for (var product: dataMonth.getProducts()) {
-                System.out.println(product);
-            }
-        }
+    public void getInfoForMonths() {
+        dataMonths.forEach(info -> System.out.println(info.getInfo()));
+    }
+
+    public void getInfoForYear() {
+        System.out.println(dataYear.getInfo());
     }
 }

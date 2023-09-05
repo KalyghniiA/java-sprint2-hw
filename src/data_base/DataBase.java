@@ -1,7 +1,7 @@
 package data_base;
 
 
-import data_base.dataPerYear.DataPerYear;
+import data_base.data_per_year.DataPerYear;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,11 +30,19 @@ public class DataBase {
         database.get(year).addInfo(info, month);
     }
 
-    public void getInfo(Integer year) {
+    public void getInfoForYear(Integer year) {
         if (!database.containsKey(year)) {
             System.out.println("За данный год нет информации");
         } else {
-            database.get(year).getInfo();
+            database.get(year).getInfoForYear();
         }
+    }
+
+    public void getInfoForMonths(Integer year) {
+        if (!database.containsKey(year)) {
+            System.out.println("Данных за этот год нет");
+        }
+
+        database.get(year).getInfoForMonths();
     }
 }

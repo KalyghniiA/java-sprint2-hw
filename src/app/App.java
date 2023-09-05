@@ -24,10 +24,10 @@ public class App {
                         manager.readInfoForMonth();
                         break;
                     case 2:
-                        System.out.println("Start 2");
+                        manager.readInfoAllMonthToYear();
                         break;
                     case 3:
-                        System.out.println("Start 3");
+                        manager.readInfoForYear();
                         break;
                     case 4:
                         System.out.println("Start 4");
@@ -39,7 +39,10 @@ public class App {
                         System.out.println("Start 6");
                         break;
                     case 7:
-                        manager.getInfo();
+                        manager.getInfoForMonths();
+                        break;
+                    case 8:
+                        manager.getInfoForYear();
                         break;
                     case 0:
                         System.out.println("Всего доброго!");

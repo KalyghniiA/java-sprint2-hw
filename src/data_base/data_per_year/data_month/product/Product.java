@@ -1,4 +1,4 @@
-package product;
+package data_base.data_per_year.data_month.product;
 
 import java.util.Objects;
 
@@ -46,6 +46,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("%s,%b,%s,%s", productName, isExpense, quantity, price);
+        return String.format("Наименование: %s%nТип: %s%nКоличество: %s%nЦена: %s%n",
+                productName,
+                isExpense ? "Расход" : "Доход",
+                quantity,
+                price);
+
     }
 }

@@ -1,6 +1,6 @@
-package data_base.dataPerYear.dataMonth;
+package data_base.data_per_year.data_month;
 
-import product.Product;
+import data_base.data_per_year.data_month.product.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,17 @@ public class DataMonth {
 
     public List<Product> getProducts() {
         return new ArrayList<>(products);
+    }
+
+    public String getInfo() {
+        StringBuilder result = new StringBuilder();
+        result.append(String.format("Отчет за %s месяц: %n", month));
+
+        for (Product product: products) {
+            result.append(product.toString());
+        }
+
+        return result.append("---///---").toString();
     }
 
     @Override
