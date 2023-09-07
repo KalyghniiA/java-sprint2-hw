@@ -63,7 +63,21 @@ public class Util {
             case "december":
                 return "12";
             default:
-                throw new FormatterException();
+                throw new FormatterException("Месяц");
+        }
+    }
+    public static String formattingIsExpense(String value) throws FormatterException {
+        switch (value.toLowerCase()) {
+            case "да":
+            case "yes":
+            case "true":
+                return "TRUE";
+            case "нет":
+            case "no":
+            case "false":
+                return "FALSE";
+            default:
+                throw new FormatterException("Булево значение расхода");
         }
     }
     public static String createPathToCSV(Integer year, String month) {

@@ -33,7 +33,7 @@ public class App {
                         manager.verificationFiles();
                         break;
                     case 5:
-                        System.out.println("Start 5");
+                        manager.createFileForMonth();
                         break;
                     case 6:
                         System.out.println("Start 6");

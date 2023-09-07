@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Parser {
+
     public static List<String> parseData(File file) {
         List<String> result = new LinkedList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -20,4 +21,6 @@ public class Parser {
             throw new RuntimeException(e);
         }
     };
+
+
 }

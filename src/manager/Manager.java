@@ -3,9 +3,13 @@ package manager;
 import data_base.DataBase;
 import exceptions.FormatterException;
 import parser.Parser;
+import util.Constant;
 import util.Util;
+import writer.Writer;
 
 import java.io.File;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -132,6 +136,7 @@ public class Manager {
         }
     }
 
+
     private boolean readInfo(File file, int year, String month) {
         List<String> list = Parser.parseData(file);
         if (list.isEmpty()) {
@@ -150,6 +155,74 @@ public class Manager {
         }
         base.addInfo(list, year);
         return true;
+    }
+
+    // посмотри плизз!
+    public void createFileForMonth() {
+        try {
+            System.out.println("За какой год вы хотите создать отчет?");
+            int year = sc.nextInt();
+            System.out.println("За какой месяц вы хотите создать отчет?");
+            String month = Util.formattingMonth(sc.next());
+
+            File file = new File(Util.createPathToCSV(year, month));
+
+            if (file.exists()) {
+                System.out.println("Файл за данный месяц уже существует, для редактирования требуется вызвать соответствующий пункт");
+                return;
+            }
+
+            boolean isContinue;
+            List<String> products = new ArrayList<>();
+
+            do {
+                createProductLine(products);
+                System.out.println("Хотите добавить еще?(да/нет)");
+                String isGoOn = sc.next();
+
+                isContinue = isGoOn.equalsIgnoreCase("да");
+
+            } while(isContinue);
+
+            Writer.saveData(file, Constant.HEADER_MONTH_FILE.getConstant(), products);
+
+            File fileYear = new File(Util.createPathToCSV(year));
+
+            if (!fileYear.exists()) {
+                System.out.println("Файла за данный год не существует, требуется создание?");
+            } else {
+                System.out.println("Требуется редактирование файла за год?");
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Указан неверный формат, попробуйте снова");
+            sc.next();
+            createFileForMonth();
+        } catch (FormatterException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Попробуйте снова");
+            createFileForMonth();
+        }
+    }
+    private void createProductLine(List<String> products) {
+        try {
+            System.out.println("Укажите наименование товара");
+            String nameItem = sc.next();
+            System.out.println("Укажите цену товара");
+            String price = String.valueOf(sc.nextInt());
+            System.out.println("Укажите количество");
+            String quantity = String.valueOf(sc.nextInt());
+            System.out.println("Это расход?(введите ответ в формате да/нет)");
+            String isExpense = Util.formattingIsExpense(sc.next());
+
+            products.add(String.format("%s,%s,%s,%s%n", nameItem, isExpense, quantity, price));
+
+
+        } catch (FormatterException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Попробуйте снова");
+            createProductLine(products);
+        }
     }
 
 }
