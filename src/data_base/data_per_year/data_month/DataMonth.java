@@ -38,6 +38,14 @@ public class DataMonth {
         return result.append("---///---").toString();
     }
 
+    public int getAllRevenue() {
+        return products.stream().filter(product -> !product.isExpense()).map(Product::getFullPrice).reduce(Integer::sum).orElse(0);
+    }
+
+    public int getAllExpenses() {
+        return products.stream().filter(Product::isExpense).map(Product::getFullPrice).reduce(Integer::sum).orElse(0);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -102,6 +102,36 @@ public class Manager {
         }
     }
 
+    public void getInfoForMonths() {
+        try {
+            System.out.println("Введите год, за который хотите получить информацию");
+            Integer year = sc.nextInt();
+            base.getInfoForMonths(year);
+        } catch (InputMismatchException e) {
+            System.out.println("Год введен в неверном формате, попробуйте снова");
+            sc.next();
+            getInfoForYear();
+        }
+    }
+
+    public void getInfoForYear() {
+        System.out.println("Введите год, за который хотите получить информацию");
+        Integer year = sc.nextInt();
+        base.getInfoForYear(year);
+    }
+
+    public void verificationFiles() {
+        System.out.println("За какой год вы хотите проверить информацию");
+        try {
+            int year = sc.nextInt();
+            base.verificationFiles(year);
+        } catch (InputMismatchException e) {
+            System.out.println("Год введен в неверном формате, попробуйте снова");
+            sc.next();
+            verificationFiles();
+        }
+    }
+
     private boolean readInfo(File file, int year, String month) {
         List<String> list = Parser.parseData(file);
         if (list.isEmpty()) {
@@ -121,26 +151,5 @@ public class Manager {
         base.addInfo(list, year);
         return true;
     }
-
-
-    public void getInfoForMonths() {
-        try {
-            System.out.println("Введите год, за который хотите получить информацию");
-            Integer year = sc.nextInt();
-            base.getInfoForMonths(year);
-        } catch (InputMismatchException e) {
-            System.out.println("Год введен в неверном формате, попробуйте снова");
-            sc.next();
-            getInfoForYear();
-        }
-    }
-
-    public void getInfoForYear() {
-        System.out.println("Введите год, за который хотите получить информацию");
-        Integer year = sc.nextInt();
-        base.getInfoForYear(year);
-    }
-
-
 
 }

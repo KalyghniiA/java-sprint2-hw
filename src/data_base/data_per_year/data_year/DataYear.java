@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DataYear {
-    Map<String, MonthInfo> listMonth;
+    private final Map<String, MonthInfo> listMonth;
 
     public DataYear() {
         listMonth = new HashMap<>();
@@ -55,13 +55,23 @@ public class DataYear {
 
         return result.toString();
     }
+    public int getSizeMonthList() {
+        return listMonth.size();
+    }
 
+    public int getAllRevenue() {
+       return listMonth.values().stream().map(MonthInfo::getRevenue).reduce(Integer::sum).orElse(0);
+    }
+
+    public int getAllExpense() {
+        return listMonth.values().stream().map(MonthInfo::getExpense).reduce(Integer::sum).orElse(0);
+    }
 
     // Требуется посмотреть!!!
     static class MonthInfo {
-        String month;
-        int expense = 0;
-        int revenue = 0;
+        private String month;
+        private int expense = 0;
+        private int revenue = 0;
 
         MonthInfo(String month) {
             this.month = month;

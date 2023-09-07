@@ -22,7 +22,7 @@ public class DataBase {
         database.get(year).addInfo(info);
     }
 
-    public void addInfo(List<String> info, Integer year, String month) {
+    public void addInfo(List<String> info, int year, String month) {
         if (!database.containsKey(year)) {
             database.put(year, new DataPerYear());
         }
@@ -30,7 +30,7 @@ public class DataBase {
         database.get(year).addInfo(info, month);
     }
 
-    public void getInfoForYear(Integer year) {
+    public void getInfoForYear(int year) {
         if (!database.containsKey(year)) {
             System.out.println("За данный год нет информации");
         } else {
@@ -38,11 +38,20 @@ public class DataBase {
         }
     }
 
-    public void getInfoForMonths(Integer year) {
+    public void getInfoForMonths(int year) {
         if (!database.containsKey(year)) {
             System.out.println("Данных за этот год нет");
         }
 
         database.get(year).getInfoForMonths();
+    }
+
+    public void verificationFiles(int year) {
+        if (!database.containsKey(year)) {
+            System.out.println("За данный год нет информации");
+            return;
+        }
+
+        database.get(year).verificationFiles();
     }
 }

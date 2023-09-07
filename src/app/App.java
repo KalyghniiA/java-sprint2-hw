@@ -30,7 +30,7 @@ public class App {
                         manager.readInfoForYear();
                         break;
                     case 4:
-                        System.out.println("Start 4");
+                        manager.verificationFiles();
                         break;
                     case 5:
                         System.out.println("Start 5");

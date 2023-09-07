@@ -19,16 +19,20 @@ public class Product {
         return productName;
     }
 
-    public Boolean getExpense() {
+    public Boolean isExpense() {
         return isExpense;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
+    }
+
+    public int getFullPrice () {
+        return price * quantity;
     }
 
     @Override
