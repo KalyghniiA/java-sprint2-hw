@@ -1,6 +1,6 @@
 package app;
 
-import data_base.DataBase;
+import dataBase.DataBase;
 import manager.Manager;
 
 import java.util.InputMismatchException;
@@ -36,7 +36,7 @@ public class App {
                         manager.createFileForMonth();
                         break;
                     case 6:
-                        System.out.println("Start 6");
+                        manager.refactorFileToMonth();
                         break;
                     case 7:
                         manager.getInfoForMonths();
