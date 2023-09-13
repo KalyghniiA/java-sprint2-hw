@@ -18,33 +18,34 @@ public class App {
             System.out.println("Выберете одну из команд");
             getMenu();
             try {
-                int current = sc.nextInt();
+                String current = sc.next().toLowerCase();
                 switch (current) {
-                    case 1:
+                    case "1":
                         manager.readInfoForMonth();
                         break;
-                    case 2:
+                    case "2":
                         manager.readInfoAllMonthToYear();
                         break;
-                    case 3:
+                    case "3":
                         manager.readInfoForYear();
                         break;
-                    case 4:
+                    case "4":
                         manager.verificationFiles();
                         break;
-                    case 5:
+                    case "5":
                         manager.createFileForMonth();
                         break;
-                    case 6:
+                    case "6":
                         manager.refactorFileToMonth();
                         break;
-                    case 7:
+                    case "7":
                         manager.getInfoForMonths();
                         break;
-                    case 8:
+                    case "8":
                         manager.getInfoForYear();
                         break;
-                    case 0:
+                    case "выход":
+                    case "quit":
                         System.out.println("Всего доброго!");
                         return;
                     default:
@@ -68,7 +69,7 @@ public class App {
         System.out.println("6 -- Отредактировать отчет за месяц");
         System.out.println("7 -- Вывести информацию о всех месячных отчетах");
         System.out.println("8 -- Вывести информацию о годовом отчете");
-        System.out.println("0 -- Выход");
+        System.out.println("Введите \"Выход\" для остановки программы");
     }
 
 
