@@ -77,11 +77,12 @@ public class TransactionMonth {
 
     @Override
     public String toString() {
-        return String.format("Наименование: %s%nТип: %s%nКоличество: %s%nЦена: %s%n",
+        return String.format("Наименование: %s%nТип: %s%nКоличество: %s%nЦена: %s%nОбщая сумма: %s%n",
                 productName,
                 isExpense ? "Расход" : "Доход",
                 quantity,
-                price);
+                price,
+                getFullPrice());
 
     }
 }

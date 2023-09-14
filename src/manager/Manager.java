@@ -11,6 +11,7 @@ import writer.Writer;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Manager {
     private final Scanner sc;
@@ -110,18 +111,23 @@ public class Manager {
             int year = sc.nextInt();
             Map<String, List<TransactionMonth>> info = base.getInfoForMonths(year);
 
-            if (info == null) {
+            if (info == null || info.isEmpty()) {
+                System.out.println("Данных пока нет, требуется сначала считать файл");
                 return;
             }
 
-            if (info.isEmpty()) {
-                System.out.println("Данных пока нет, требуется сначала считать файл");
-            }
+
+
 
             StringBuilder result = new StringBuilder();
             for (Map.Entry<String, List<TransactionMonth>> infoForMonth: info.entrySet()) {
                 result.append(String.format("Месяц %s%n", infoForMonth.getKey()));
-                infoForMonth.getValue().forEach(transactionMonth -> result.append(transactionMonth.toString()));
+                TransactionMonth maxRevenueTransaction = infoForMonth.getValue().stream().filter(transaction -> !transaction.isExpense()).max(Comparator.comparingInt(TransactionMonth::getFullPrice)).orElse(null);
+                TransactionMonth maxExpenseTransaction = infoForMonth.getValue().stream().filter(TransactionMonth::isExpense).max(Comparator.comparingInt(TransactionMonth::getFullPrice)).orElse(null);
+
+                result.append("Самый большой доход:\n").append(maxRevenueTransaction);
+                result.append("Самый большой расход:\n").append(maxExpenseTransaction);
+
                 result.append("---///---\n");
             }
 
@@ -140,21 +146,46 @@ public class Manager {
         System.out.println("Введите год, за который хотите получить информацию");
         int year = sc.nextInt();
 
-        Map<String, TransactionYear> info = base.getInfoForYear(year);
-        if (info == null) {
+        Map<String, TransactionYear> infoForYear = base.getInfoForYear(year);
+        Map<String, List<TransactionMonth>> infoForMonths = base.getInfoForMonths(year);
+        if (infoForYear == null) {
             return;
         }
 
-        if (info.isEmpty()) {
+        if (infoForYear.isEmpty()) {
             System.out.println("Данных пока нет, требуется сначала считать файл");
         }
 
         StringBuilder result = new StringBuilder();
-        for (Map.Entry<String, TransactionYear> infoMonth: info.entrySet()) {
+        int maxRevenue = 0;
+        int maxExpense = 0;
+
+        for (Map.Entry<String, TransactionYear> infoMonth: infoForYear.entrySet()) {
+            maxRevenue += infoMonth.getValue().getRevenue();
+            maxExpense += infoMonth.getValue().getExpense();
             result.append(String.format("Информация за %s месяц%n", infoMonth.getKey()))
                     .append(String.format("Доходы: %s%n", infoMonth.getValue().getRevenue()))
                     .append(String.format("Расходы: %s%n", infoMonth.getValue().getExpense()))
-                    .append("---////---");
+                    .append("---////---\n");
+        }
+
+
+
+        if (infoForMonths != null && !infoForMonths.isEmpty()) {
+            int quantityRevenueTransaction = 0;
+            int quantityExpenseTransaction = 0;
+            for (Map.Entry<String, List<TransactionMonth>> transactionMonth: infoForMonths.entrySet()) {
+                quantityRevenueTransaction += (int) transactionMonth.getValue().stream().filter(transaction -> !transaction.isExpense()).count();
+                quantityExpenseTransaction += (int) transactionMonth.getValue().stream().filter(TransactionMonth::isExpense).count();
+            }
+
+
+
+            result.append("Средний доход за год:\n").append(maxRevenue / quantityRevenueTransaction).append("\n");
+            result.append("Средний расход за год: \n").append(maxExpense / quantityExpenseTransaction).append("\n");
+
+        } else {
+            result.append("Невозможно получить среднее значение(нет данных месячных файлов)\n");
         }
 
         System.out.println(result);
